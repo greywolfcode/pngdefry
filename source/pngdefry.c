@@ -38,7 +38,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+// windows doesn't have strings.h/strcasecmp, replace it with windows version
+#ifdef _WIN32
+#define strcasecmp _stricmp
+#else
 #include <strings.h>
+#endif
+
 #include <sys/types.h>
 
 #include "miniz.c"
