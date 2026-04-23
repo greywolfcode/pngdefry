@@ -1,3 +1,5 @@
 source/pngdefry
 *~
 *.dSYM/
+.vs/*
+out/*
