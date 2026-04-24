@@ -3,3 +3,4 @@ source/pngdefry
 *.dSYM/
 .vs/*
 out/*
+CMakeSettings.json
