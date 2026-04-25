@@ -50,6 +50,7 @@
 
 #include "miniz.c"
 
+#include "pngdefry_export.h"
 
 /** Global flags, set on the command line **/
 int flag_Verbose = 0;
@@ -1388,7 +1389,7 @@ int process (char *filename)
 	return 0;
 }
 
-int main (int argc, char **argv)
+PNGDEFRY_EXPORT int main (int argc, char **argv)
 {
 	int i, nomoreoptions;
 	int seenFiles = 0, processedFiles = 0;
