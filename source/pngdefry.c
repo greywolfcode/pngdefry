@@ -87,6 +87,60 @@ int max_chunks = 0;
 
 struct chunk_t *pngChunks = NULL;
 
+/** Resets global variables and flags */
+/** This is required for performing multiple conversiosn without restarting */
+PNGDEFRY_EXPORT void reset()
+{
+	if (flag_Debug)
+		printf("Resetting\n");
+	
+	/** Global flags, set on the command line **/
+	flag_Verbose = 0;
+	flag_Process_Anyway = 0;
+	flag_List_Chunks = 0;
+	flag_Debug = 0;
+	flag_UpdateAlpha = 1;
+
+	/* do not ignore bad CRC32, as proposed by Tatsh (https://github.com/Tatsh/pngdefry) */
+	/* ignoring a bad CRC32 is considered a possible vulnerability */
+	/* the flag is set by default to NOT ignore a CRC32 check */
+	flag_Ignore_CRC32 = 0;
+
+	repack_IDAT_size = 524288;	/* 512K -- seems a bit much to me, axually, but have seen this used */
+
+	flag_Rewrite = 0;
+
+	if (suffix != NULL)
+	{
+		free(suffix);
+		suffix = NULL;
+	}
+	if (outputPath != NULL)
+	{
+		free(outputPath);
+		outputPath = NULL;
+	}
+
+	/** Chunk data comes here **/
+
+	if (pngChunks != NULL) 
+	{
+		/** make sure all memory inside is freed */
+		for (int i = 0; i < num_chunks; i++) 
+		{
+			if (pngChunks[i].data != NULL) 
+			{
+				free(pngChunks[i].data);
+				pngChunks[i].data = NULL;
+			}
+		}
+		free(pngChunks);
+		pngChunks = NULL;
+	}
+
+	num_chunks = 0;
+	max_chunks = 0;
+}
 
 /** CRC32 generator for a block of data, thanks to Marc Autret
 	(he wrote this original code in Javascript for use in InDesign!) **/
