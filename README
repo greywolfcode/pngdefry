@@ -6,6 +6,9 @@ NAME
 SYNOPSIS
 	 pngdefry [-soaplvid] file.png [file.png [...]]
 
+CMAKE
+       BUILD_AS_LIBRARY  Build pngdefry as shared library not executable. Default off.       
+
 OPTIONS
        -s(suffix)
 	   Appends suffix to output file name.
