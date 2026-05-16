@@ -4,7 +4,11 @@ on: [push]
 
 jobs:
   build:
+
     name: Build (${{ matrix.os-name }})
+
+    runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
         include:
@@ -17,32 +21,30 @@ jobs:
           - os: macos-latest
             os-name: Mac
             artifact-suffix: mac
+            
+    steps:
+      - name: Clone Project
+        uses: actions/checkout@v4.2.2
 
-      runs-on: ${{ matrix.os }}
+      - name: Configure CMake Executable
+        run: cmake -S . -B build_exe -DCMAKE_BUILD_TYPE=Release
 
-      steps:
-        - name: Clone Project
-          uses: actions/checkout@v4.2.2
+      - name: Build Executable
+        run: cmake --build build_exe --config Release
 
-        - name: Configure CMake Executable
-          run: cmake -S . -B build_exe -DCMAKE_BUILD_TYPE=Release
+      - name: Configure CMake Library
+        run: cmake -S . -B build_lib -DCMAKE_BUILD_TYPE=Release -DBUILD_AS_LIBRARY=true
 
-        - name: Build Executable
-          run: cmake --build build_exe --config Release
-
-        - name: Configure CMake Library
-          run: cmake -S . -B build_lib -DCMAKE_BUILD_TYPE=Release -DBUILD_AS_LIBRARY=true
-
-        - name: Build Library
-          run: cmake --build build_lib --config Release
-        
-        - name: Archive pngdefry
-          uses: actions/upload-artifact@v4
-          with:
-            name: pngdefry-${{ matrix.artifact-suffix }}
-            path: |
-              build_exe/**/*.exe
-              build_exe/**/pngdefry
-              build_lib/**/*.dll
-              build_lib/**/*.so
-              build_lib/**/*.dylib
+      - name: Build Library
+        run: cmake --build build_lib --config Release
+      
+      - name: Archive pngdefry
+        uses: actions/upload-artifact@v4
+        with:
+          name: pngdefry-${{ matrix.artifact-suffix }}
+          path: |
+            build_exe/**/*.exe
+            build_exe/**/pngdefry
+            build_lib/**/*.dll
+            build_lib/**/*.so
+            build_lib/**/*.dylib
