@@ -6,17 +6,15 @@ option(BUILD_AS_LIBRARY "Build pngdefry as shared library not executable" OFF)
 
 include(GenerateExportHeader)
 
-
 if(BUILD_AS_LIBRARY) 
     add_library(pngdefry SHARED)
     set_target_properties(pngdefry PROPERTIES C_VISIBILITY_PRESET hidden VISIBILITY_INLINES_HIDDEN 1)
-    generate_export_header(pngdefry)
-    target_include_directories(pngdefry PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
-    target_sources(pngdefry PUBLIC source/pngdefry.c)
+    generate_export_header(pngdefry BASE_NAME pngdefry)
 else()
     add_executable(pngdefry)
     target_compile_definitions(pngdefry PRIVATE MYLIB_NO_EXPORT_LOGIC)
-    generate_export_header(pngdefry STATIC_DEFINE MYLIB_NO_EXPORT_LOGIC)
-    target_include_directories(pngdefry PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
-    target_sources(pngdefry PRIVATE source/pngdefry.c)
+    generate_export_header(pngdefry STATIC_DEFINE MYLIB_NO_EXPORT_LOGIC BASE_NAME pngdefry)
 endif() 
+
+target_include_directories(pngdefry PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
+target_sources(pngdefry PRIVATE source/pngdefry.c)
