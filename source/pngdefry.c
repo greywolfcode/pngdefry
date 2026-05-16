@@ -50,7 +50,7 @@
 
 #include "miniz.c"
 
-#include <"pngdefry_export.h">
+#include <pngdefry_export.h>
 
 /** Global flags, set on the command line **/
 int flag_Verbose = 0;
