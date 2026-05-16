@@ -17,4 +17,4 @@ else()
 endif() 
 
 target_include_directories(pngdefry PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
-target_sources(pngdefry PRIVATE source/pngdefry.c)
+target_sources(pngdefry PRIVATE source/pngdefry.c "${CMAKE_CURRENT_BINARY_DIR}/pngdefry_export.h")
