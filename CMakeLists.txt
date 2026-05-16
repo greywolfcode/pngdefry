@@ -13,7 +13,12 @@ if(BUILD_AS_LIBRARY)
 else()
     add_executable(pngdefry)
     target_compile_definitions(pngdefry PRIVATE MYLIB_NO_EXPORT_LOGIC)
-    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/pngdefry_export.h")
+    file(WRITE "${CMAKE_CURRENT_BINARY_DIR}/pngdefry_export.h"
+    "#ifndef PNGDEFRY_EXPORT_H\n
+    #define PNGDEFRY_EXPORT_H\n
+    #define PNGDEFRY_EXPORT\n
+    #endif\n"
+    )
 endif() 
 
 target_include_directories(pngdefry PUBLIC ${CMAKE_CURRENT_BINARY_DIR})
