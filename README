@@ -1,4 +1,4 @@
-pngdefry(1)								2017-03-23							      pngdefry(1)
+pngdefry(1)								2026-07-16							      pngdefry(1)
 
 NAME
        pngdefry - Removes -iphone optimization and reorders RGB(A) pixels for PNG images
@@ -53,4 +53,4 @@ AUTHORS
        This manual page was written by Jongware for Mac OS X 10.7.2 (but may be used by others). Released as "un-licensed" public domain software. For
        more information, please refer to <http://unlicense.org/>
 
-pngdefry								2017-03-23							      pngdefry(1)
+pngdefry								2026-07-16							      pngdefry(1)
